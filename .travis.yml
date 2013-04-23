@@ -1,0 +1,3 @@
+install: sudo apt-get install qemu
+script: make
+language: cpp
