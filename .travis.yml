@@ -1,3 +1,5 @@
-install: sudo apt-get install qemu
-script: make
 language: cpp
+before_install:
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq qemu
+script: make
