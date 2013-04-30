@@ -1,0 +1,5 @@
+language: cpp
+before_install:
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq qemu libc6-dev-i386
+script: "make PLATFORM=linux64"

@@ -11,3 +11,8 @@
 *.lai
 *.la
 *.a
+
+build/
+bin/
+misc/osxcross/linux32/
+config.mk

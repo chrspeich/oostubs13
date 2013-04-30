@@ -21,7 +21,7 @@ EMUFLAGS=
 DEBUGFLAGS=
 
 #----- END OF INPUT BLOCK -----#
-
+-include config.mk
 include misc/${PLATFORM}/config.mk
 include misc/rules.mk
 -include misc/${PLATFORM}/rules.mk
