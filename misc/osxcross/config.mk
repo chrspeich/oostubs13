@@ -1,6 +1,6 @@
 # define your prefix to the corss compiler
-CPREFIX=
-#CPREFIX=./misc/osxcross/linux32/bin/i586-pc-linux-
+#CPREFIX=
+CPREFIX=./misc/osxcross/linux32/bin/i586-pc-linux-
 
 CC=${CPREFIX}gcc
 CXX=${CPREFIX}g++
