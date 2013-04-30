@@ -7,9 +7,12 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #ifndef __screen_include__
-#define __screen_include__
+#define __screen_include_
 
 /* INCLUDES */
+
+#include <stdint.h>
+#include "machine/io_port.h"
 
 /* CLASSES */
 
@@ -20,7 +23,17 @@
  */
 class CGA_Screen {
   private:
-    
+	uint16_t* cgaBuffer;
+	unsigned short x;
+    unsigned short y;
+    int fgColor;
+    int bgColor;
+    bool blink;
+    unsigned short cursor_x;
+    unsigned short cursor_y;
+    IO_Port controll_port;
+    IO_Port data_port;    
+
   protected:
     
   public:
