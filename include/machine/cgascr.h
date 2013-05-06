@@ -29,8 +29,6 @@ class CGA_Screen {
     int fgColor;
     int bgColor;
     bool blink;
-    unsigned short cursor_x;
-    unsigned short cursor_y;
     IO_Port controll_port;
     IO_Port data_port;    
 
@@ -152,6 +150,10 @@ class CGA_Screen {
      *    indecates if the text should blink (true = should blink)
      */
     void setAttributes(int fgColor, int bgColor, bool blink);
+
+	void setfgColor(int fgColor);
+	void setbgColor(int bgColor);
+	void setblink(bool blink);
 };
 
 #endif

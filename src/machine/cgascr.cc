@@ -25,10 +25,10 @@ CGA_Screen::~CGA_Screen(){
 }
 
 /** \todo implementieren **/
-void CGA_Screen::setpos (unsigned short x, unsigned short y) {
+void CGA_Screen::setpos (unsigned short _x, unsigned short _y) {
   /* ToDo: insert sourcecode */
-    cursor_x = x;
-    cursor_y = y;
+    x = _x;
+   	y = _y;
     controll_port.outb(0x0F);
     data_port.outb((y*80+x)&0xFF);
     controll_port.outb(0x0E);
@@ -36,10 +36,10 @@ void CGA_Screen::setpos (unsigned short x, unsigned short y) {
 }
 
 /** \todo implementieren **/
-void CGA_Screen::getpos (unsigned short& x, unsigned short& y) const{
+void CGA_Screen::getpos (unsigned short& _x, unsigned short& _y) const{
   /* ToDo: insert sourcecode */
-    x = cursor_x;
-    y = cursor_y; 
+    _x = x;
+    _y = y; 
 }
 
 /** \todo implementieren **/
@@ -51,12 +51,20 @@ void CGA_Screen::show (unsigned short x, unsigned short y, char c, unsigned char
 /** \todo implementieren **/
 void CGA_Screen::print (const char* string, unsigned int n) {
     for(int i = 0; i < n; i++) {
-        show(x,y,string[i], ((uint16_t)blink<<7) | ((uint16_t)bgColor<<4) | ((uint16_t)fgColor));
+		if (string[i]=='\n') {
+			y++;
+			x=0;
+			
+		}        
+		
+		else {
+		show(x,y,string[i], ((uint16_t)blink<<7) | ((uint16_t)bgColor<<4) | ((uint16_t)fgColor));
         x++;
         if (x>=80) {
             x = 0;
             y++;
         }
+		}
         if (y>=25) {
             scrollup();
             y--;
@@ -90,4 +98,16 @@ void CGA_Screen::setAttributes(int fg_Color, int bg_Color, bool _blink){
     fgColor = fg_Color;
     bgColor = bg_Color;
     blink = _blink;     
+}
+
+void CGA_Screen::setfgColor(int fg_Color){
+	fgColor = fg_Color;
+}
+
+void CGA_Screen::setbgColor(int bg_Color){
+	bgColor = bg_Color;
+}
+
+void CGA_Screen::setblink(bool _blink){
+	blink = _blink;
 }

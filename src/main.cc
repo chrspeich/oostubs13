@@ -49,13 +49,12 @@ extern "C" void kernel(uint32_t magic, const Multiboot_Info* info);
  **/
 void kernel(uint32_t magic, const Multiboot_Info* info){
   
-  /*TaskClass task(magic, info);
+  TaskClass task(magic, info);
   
-  task.action();*/
-	CGA_Screen screen;
-    screen.print("Hallo Welt bla", 14);
-    screen.setpos(14,0);
-    /*screen.show(0,0, 'a', 0x07);*/
-    
+  task.action();
+
+	/*kout << "Hallo das ist ein wundertolles Testprogramm" << -439L << endl << "bla bla bla";
+	kout.flush();
+    */
   
 }
