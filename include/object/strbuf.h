@@ -13,6 +13,8 @@
 
 #include "config.h"
 
+#define BUFFER_SIZE 80
+
 /** 
  * \~german
  * \brief Puffer für die Textausgabe
@@ -49,7 +51,9 @@ class Stringbuffer {
      * \~
      * \todo write declaration
      */
-    
+    char buffer[BUFFER_SIZE];
+
+
     /** \brief buffer pointer saving the position of the next insertion 
      * 
      * \~
@@ -62,7 +66,7 @@ class Stringbuffer {
      * \~
      * \todo write implementation
      */
-    Stringbuffer(){};
+    Stringbuffer();
     
     /** \brief Default destructor of Stringbuffer
      *
@@ -71,6 +75,8 @@ class Stringbuffer {
      */
     virtual ~Stringbuffer(){};
     
+	
+
     /** \brief insert a character into the buffer
      *
      * Method put() inserts a character into the buffer. If the buffer is full 
