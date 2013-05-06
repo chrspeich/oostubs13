@@ -245,7 +245,20 @@ void Keyboard_Controller::set_repeat_rate (unsigned char speed, unsigned char de
   // Wait for the keyboard to be ready
   while (ctrl_port.inb() & inpb);
 
+  // Tell keyboard we want to set repeat rate
+  data_port.outb(cmd_set_speed);
+  // Wait for the keyboard to be ready
+  while ((ctrl_port.inb() & outb) == 0);
 
+  // Keyboard acknownleged our request and awaits the repeat rate
+  if (data_port.inb() == ack) {
+    // Clean up the values a bit
+    speed &= 0x1F;
+    delay &= 0x3;
+
+    // Send repeat rate
+    data_port.outb(speed | (delay << 5));
+  }
 }
 
 /**
