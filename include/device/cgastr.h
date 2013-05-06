@@ -55,6 +55,9 @@ class CGA_Stream  : public O_Stream, public CGA_Screen {
      *        CGA driver
      */
     virtual void setAttributes(int fgColor, int bgColor, bool blink);
+	void setfgColor(int fgColor);
+	void setbgColor(int bgColor);
+	void setblink(bool blink);
     
 };
 

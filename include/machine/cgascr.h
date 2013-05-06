@@ -7,9 +7,12 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #ifndef __screen_include__
-#define __screen_include__
+#define __screen_include_
 
 /* INCLUDES */
+
+#include <stdint.h>
+#include "machine/io_port.h"
 
 /* CLASSES */
 
@@ -20,7 +23,15 @@
  */
 class CGA_Screen {
   private:
-    
+	uint16_t* cgaBuffer;
+	unsigned short x;
+    unsigned short y;
+    int fgColor;
+    int bgColor;
+    bool blink;
+    IO_Port controll_port;
+    IO_Port data_port;    
+
   protected:
     
   public:
@@ -139,6 +150,10 @@ class CGA_Screen {
      *    indecates if the text should blink (true = should blink)
      */
     void setAttributes(int fgColor, int bgColor, bool blink);
+
+	void setfgColor(int fgColor);
+	void setbgColor(int bgColor);
+	void setblink(bool blink);
 };
 
 #endif

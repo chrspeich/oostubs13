@@ -100,7 +100,21 @@ class Blink{
  * for display of digits and to print the buffer after an endl.
  */
 class O_Stream : public Stringbuffer{
-  protected: 
+	
+	public:    
+    /** 
+     * \brief basis for display of digits eg. 2, 8, 10 or 16 
+     */
+    enum Base{
+      bin=2,
+      oct=8,
+      dec=10,
+      hex=16
+    };  
+
+
+
+	protected: 
     /**
      * \~german 
      * \brief ermöglicht dem O_Stream das setzen der Attribute
@@ -134,19 +148,17 @@ class O_Stream : public Stringbuffer{
      * \param blink
      *    blinking state
      */
-    virtual void setAttributes(int fgColor, int bgColor, bool blink) = 0;
+    
+	virtual void setAttributes(int fgColor, int bgColor, bool blink) = 0;
+
+	virtual void setfgColor(int fgColor) = 0;
+	virtual void setbgColor(int bgColor) = 0;
+	virtual void setblink(bool blink) = 0;
+	
+	Base base;
     
   public:
-    
-    /** 
-     * \brief basis for display of digits eg. 2, 8, 10 or 16 
-     */
-    enum Base{
-      bin=2,
-      oct=8,
-      dec=10,
-      hex=16
-    };
+
     
     /** 
      * \brief Default constructor initialising with dezimal system 
