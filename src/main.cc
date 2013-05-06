@@ -52,9 +52,4 @@ void kernel(uint32_t magic, const Multiboot_Info* info){
   TaskClass task(magic, info);
   
   task.action();
-
-	/*kout << "Hallo das ist ein wundertolles Testprogramm" << -439L << endl << "bla bla bla";
-	kout.flush();
-    */
-  
 }
