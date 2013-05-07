@@ -8,7 +8,7 @@
 
 #include "object/o_stream.h"
 
-static char* ziffern = "0123456789ABCDEF";
+static const char* ziffern = "0123456789ABCDEF";
 
 /** \todo implementieren **/
 O_Stream::O_Stream() : Stringbuffer(){
@@ -116,10 +116,20 @@ O_Stream& O_Stream::operator << (unsigned long value) {
 	char zahl[sizeof(unsigned long)*32];
 	int n=0;
 
-	if (base>10) {
-		put('0');
-		put('x');
 
+	switch(base) {
+		case bin:
+			put('b');
+			break;
+		case oct:
+			put('0');
+			break;
+		case hex:
+			put('0');
+			put('x');
+			break;
+		default:
+			break;
 	}
 	
 	if (value == 0) {
