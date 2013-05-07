@@ -50,7 +50,7 @@ void CGA_Screen::show (unsigned short x, unsigned short y, char c, unsigned char
 
 /** \todo implementieren **/
 void CGA_Screen::print (const char* string, unsigned int n) {
-    for(int i = 0; i < n; i++) {
+    for(unsigned int i = 0; i < n; i++) {
 		if (string[i]=='\n') {
 			y++;
 			x=0;
@@ -70,6 +70,8 @@ void CGA_Screen::print (const char* string, unsigned int n) {
             y--;
         }
     }
+    // Set cursor
+    setpos(x, y);
 }
 
 /** \todo implementieren **/
