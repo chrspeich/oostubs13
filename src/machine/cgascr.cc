@@ -45,7 +45,7 @@ void CGA_Screen::getpos (unsigned short& _x, unsigned short& _y) const{
 /** \todo implementieren **/
 void CGA_Screen::show (unsigned short x, unsigned short y, char c, unsigned char attrib) {
   /* ToDo: insert sourcecode */ 
-    cgaBuffer[y*80+x] = ((uint16_t)attrib<<8) | c;
+    cgaBuffer[y*80+x] = ((uint16_t)attrib<<8) | (unsigned char)c;
 }
 
 /** \todo implementieren **/
