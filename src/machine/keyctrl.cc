@@ -217,25 +217,76 @@ Key Keyboard_Controller::key_hit () {
   //Var init
   Key invalid;                          // invalid default key
   
-  /* TODO: Insert sourcecode */
+  unsigned int status = ctrl_port.inb();
+
+  // Keyboard not ready or is mouse
+  if (!(status & outb) || (status & auxb)) {
+        return invalid;
+  }
+
+  // Read keycode from keyboard
+  code = data_port.inb();
+
+  // Try to decode the read scan codes
+  if (!key_decoded())
+    return invalid;
+
+  // Convert scan code to ascii
+  get_ascii_code();
   
-  return invalid;
+  // And give the caller the key
+  return gather;
 }
 
 /**
  * \todo implementieren
  */
 void Keyboard_Controller::set_repeat_rate (unsigned char speed, unsigned char delay) {
-  
-  /* TODO: Insert sourcecode */
-  
+  // Wait for the keyboard to be ready
+  while (ctrl_port.inb() & inpb);
+
+  // Tell keyboard we want to set repeat rate
+  data_port.outb(cmd_set_speed);
+  // Wait for the keyboard to be ready
+  while ((ctrl_port.inb() & outb) == 0);
+
+  // Keyboard acknownleged our request and awaits the repeat rate
+  if (data_port.inb() == ack) {
+    // Clean up the values a bit
+    speed &= 0x1F;
+    delay &= 0x3;
+
+    // Send repeat rate
+    data_port.outb(speed | (delay << 5));
+  }
 }
 
 /**
  * \todo implementieren
  */
 void Keyboard_Controller::set_led (Leds led, bool on) {
-  
- /* TODO: Insert sourcecode */
+  // Wait for the keyboard to be ready
+  while (ctrl_port.inb() & inpb);
+
+  // Tell keyboard we want to set the leds
+  data_port.outb(cmd_set_led);
+  // Wait for the keyboard to be ready
+  while ((ctrl_port.inb() & outb) == 0);
+
+  // Keyboard acknownleged our request and awaits the leds
+  if (data_port.inb() == ack) {
+
+    if (on)
+      leds |= led;
+    else
+      leds &= ~led;
+
+    // Send status
+    data_port.outb(leds);
+
+    // Wait for the keyboard to be ready
+    while((ctrl_port.inb() & outb) == 0);
+  }
+
 
 }

@@ -41,7 +41,7 @@ O_Stream& O_Stream::operator << (unsigned char value) {
 O_Stream& O_Stream::operator << (char* value) {
 	
 	for(int n = 0; value[n]!='\0'; n++) {
-	put(value[n]);
+		put(value[n]);
 	}		
 
   /* ToDo: insert sourcecode */
@@ -52,7 +52,7 @@ O_Stream& O_Stream::operator << (char* value) {
 O_Stream& O_Stream::operator << (const char* value) {
 
 	for(int n = 0; value[n]!='\0'; n++) {
-	put(value[n]);
+		put(value[n]);
 	}
 
   /* ToDo: insert sourcecode */
