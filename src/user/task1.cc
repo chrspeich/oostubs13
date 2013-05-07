@@ -146,7 +146,7 @@ void Task1::testKeyboard(){
 	while(true){
 		Key k=keyboard.key_hit();
 		if(k.valid()){
-			//kout.setpos(x,y);
+			kout.setpos(x,y);
 			kout << k.ascii();
 			kout.flush();
 		}

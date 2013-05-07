@@ -97,17 +97,17 @@ void CGA_Screen::clear () {
 /** \todo implementieren **/
 void CGA_Screen::setAttributes(int fg_Color, int bg_Color, bool _blink){
   /* ToDo: insert sourcecode */
-    fgColor = fg_Color;
-    bgColor = bg_Color;
-    blink = _blink;     
+    setfgColor(fg_Color);
+    setbgColor(bg_Color);
+    setblink(_blink);   
 }
 
 void CGA_Screen::setfgColor(int fg_Color){
-	fgColor = fg_Color;
+	fgColor = fg_Color & 0xF;
 }
 
 void CGA_Screen::setbgColor(int bg_Color){
-	bgColor = bg_Color;
+	bgColor = bg_Color & 0x7;
 }
 
 void CGA_Screen::setblink(bool _blink){
