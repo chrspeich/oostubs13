@@ -17,6 +17,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    CLASSES                      #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
+#define NUMBER_OF_GATES 256
 /** 
  * \~german
  * \brief Administrationseinheit für die Interruptweitergabe
@@ -49,6 +50,7 @@ class Plugbox {
      *
      * \todo write declaration
      **/
+  Gate* gates[NUMBER_OF_GATES];
     
   public:
     /** 
