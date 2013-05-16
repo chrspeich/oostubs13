@@ -49,7 +49,9 @@ extern Plugbox plugbox;
  * \todo write implementation
  */
 void guardian (unsigned short slot) {
-  plugbox.report(slot).trigger();
+  Gate& gate = plugbox.report(slot);
+  gate.setInterruptNumber(slot);
+  gate.trigger();
 }
 
 

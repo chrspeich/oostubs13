@@ -22,7 +22,7 @@ extern CGA_Stream kout;
 #                    METHODS                      # 
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 /** \todo \~german implementieren \~english write implementation */
-Keyboard::Keyboard(){
+Keyboard::Keyboard() : Keyboard_Controller() ,Gate() {
 }
 
 /** \todo \~german implementieren \~english write implementation */
