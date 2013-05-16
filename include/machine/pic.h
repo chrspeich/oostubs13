@@ -41,6 +41,8 @@
  * interrupts is enabled (see class \ref CPU). 
  */
 class PIC{
+  private:
+  IO_Port ctrl_1, ctrl_2, mask_1, mask_2;
   public:
     /** 
      * \~german
