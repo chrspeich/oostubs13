@@ -31,6 +31,7 @@ void Task2::action(){
   
   kout.getpos(x,y);
   while(1){
+    
     kout.setpos(x,y);
     for(unsigned short j=0;j<39;j++){
       kout << "-";

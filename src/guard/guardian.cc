@@ -11,6 +11,7 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 #include "useful/kout.h"
 #include "useful/cpu.h"
+#include "machine/plugbox.h"
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #            declare methods as c-like            #
@@ -21,6 +22,7 @@ extern "C" void handleException(unsigned short slot, void* eip, unsigned int efl
 extern "C" void handleExceptionE(unsigned short slot, void* eip, unsigned int eflags, unsigned short cs, unsigned int errorCode);
 extern "C" void handleExceptionReserved(unsigned short slot);
 
+extern Plugbox plugbox;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    METHODS                      #
@@ -47,7 +49,7 @@ extern "C" void handleExceptionReserved(unsigned short slot);
  * \todo write implementation
  */
 void guardian (unsigned short slot) {
-
+  plugbox.report(slot).trigger();
 }
 
 
