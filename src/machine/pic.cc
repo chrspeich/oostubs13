@@ -77,10 +77,10 @@ void PIC::ack(bool secondPIC){
 unsigned char PIC::getISR(bool secondPIC){
   if (secondPIC) {
     ctrl_2.outb(0x0b); // We want to read the ISR from PIC2
-    return mask_2.inb();
+    return ctrl_2.inb();
   }
   else {
     ctrl_1.outb(0x0b); // We want to read the ISR from PIC1
-    return mask_1.inb();
+    return ctrl_1.inb();
   }
 }
