@@ -112,7 +112,7 @@ class O_Stream : public Stringbuffer{
       hex=16
     };  
 
-
+    Base base;
 
 	protected: 
     /**
@@ -154,9 +154,7 @@ class O_Stream : public Stringbuffer{
 	virtual void setfgColor(int fgColor) = 0;
 	virtual void setbgColor(int bgColor) = 0;
 	virtual void setblink(bool blink) = 0;
-	
-	Base base;
-    
+	    
   public:
 
     
