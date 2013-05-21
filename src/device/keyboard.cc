@@ -48,5 +48,5 @@ void Keyboard::trigger(){
         	kout.setpos(x,y);
 		}
 	}
-	pic.ack(true);
+	pic.ack(false);
 }
