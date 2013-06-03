@@ -38,7 +38,11 @@ void analyseException(unsigned short slot, void** esp){
   /* * * * * * * * * * * * * * * * * * *\
   # Start ToDo-Bereich                  #
   \* * * * * * * * * * * * * * * * * * */
-  //TODO Analyse-Ausgaben hier hin
+  uint32_t* stack = (uint32_t*)esp;
+
+  for (int i = 0; i < 6; i++) {
+    kout << hex << stack[i] << endl;
+  }
   
   /* * * * * * * * * * * * * * * * * * *\
   #  Ende ToDo-Bereich                  #

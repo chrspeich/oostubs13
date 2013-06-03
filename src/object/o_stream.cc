@@ -115,40 +115,47 @@ O_Stream& O_Stream::operator << (unsigned long value) {
 
 	char zahl[sizeof(unsigned long)*32];
 	int n=0;
-
+	int minDigits = 1;
 
 	switch(base) {
 		case bin:
-			put('b');
-			break;
+		put('b');
+		break;
 		case oct:
-			put('0');
-			break;
+		put('0');
+		break;
 		case hex:
-			put('0');
-			put('x');
-			break;
+		put('0');
+		put('x');
+		minDigits = 8;
+		break;
 		default:
-			break;
+		break;
 	}
-	
+
 	if (value == 0) {
-		put(ziffern[0]);
+		for (int j = 0; j < minDigits; j++)
+			put('0');
 	}
+	else {
 
-	while (value != 0) {
-		int x = value%base;
-		value = value/base;
-		zahl[n] = ziffern[x];
-		n++;
-	}
+		while (value != 0) {
+			int x = value%base;
+			value = value/base;
+			zahl[n] = ziffern[x];
+			n++;
+		}
 
-	n--;
-
-	while (n>=0) {
-		put(zahl[n]);
 		n--;
-	}	
+
+		for (int j = n + 1; j < minDigits; j++)
+			put('0');
+
+		while (n>=0) {
+			put(zahl[n]);
+			n--;
+		}	
+	}
 
 
   return *this;
