@@ -17,6 +17,7 @@
 extern Plugbox plugbox;
 extern PIC pic;
 extern CGA_Stream kout;
+extern unsigned int globalTaskChoice;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    METHODS                      # 
@@ -37,6 +38,12 @@ void Keyboard::trigger(){
 	if(k.valid()) {
 		if (k.alt() && k.ctrl() && k.scancode() == 83) {
             reboot();
+        }
+        else if (k.alt() && k.scancode() == 2) {
+            globalTaskChoice = 1;
+        }
+        else if (k.alt() && k.scancode() == 3) {
+            globalTaskChoice = 2;
         }
         else {
         	unsigned short x,y;

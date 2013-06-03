@@ -41,7 +41,7 @@ void analyseException(unsigned short slot, void** esp){
   uint32_t* stack = (uint32_t*)esp;
 
   for (int i = 0; i < 6; i++) {
-    kout << hex << stack[i] << endl;
+    kout << hex << &stack[i] << ": " << stack[i] << endl;
   }
   
   /* * * * * * * * * * * * * * * * * * *\
@@ -86,7 +86,25 @@ void analyseProcedureStack(void** esp){
   /* * * * * * * * * * * * * * * * * * *\
   # Start ToDo-Bereich                  #
   \* * * * * * * * * * * * * * * * * * */
-  //TODO Analyse-Ausgaben hier hin
+  
+  uint32_t* stack = (uint32_t*)esp;
+
+  kout << hex;
+
+  for (int i = 0; !(stack[i] == 0xEEEEEEEE && stack[i+1] == 0x11111111 && stack[i+2] == 0xDDDDDDDD && stack[i+3] == 0xEEEEEEEE); i++) {
+    uint32_t value = stack[i];
+
+    if (i % 4 == 0) {
+      kout << endl << "#" << i << " " << &stack[i] << ": ";
+    }
+    else {
+      kout << " ";
+    }
+
+    kout << value;
+  }
+
+  kout << endl << "------------------------------------------" << endl;
   
   /* * * * * * * * * * * * * * * * * * *\
   #  Ende ToDo-Bereich                  #

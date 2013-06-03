@@ -194,7 +194,7 @@ endCEH:									/* clean up */
 	jmp endGuardian				/* and go to clean up of guardian */
 
 extraCEH:
-	pushl endCEH
+	pushl endCEH /* Push content at endCEH */
 	push %esp
 	push %eax
 	call analyseException
