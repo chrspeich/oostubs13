@@ -1,6 +1,6 @@
 # define your prefix to the corss compiler
-#CPREFIX=
-CPREFIX=./misc/osxcross/linux32/bin/i586-pc-linux-
+CPREFIX=
+#CPREFIX=./misc/osxcross/linux32/bin/i586-pc-linux-
 
 CC=${CPREFIX}gcc
 CXX=${CPREFIX}g++
@@ -8,7 +8,7 @@ ASM=${CPREFIX}gcc
 LD=${CPREFIX}ld
 EMU=qemu-system-i386
 EMUTARGET=${TARGET}
-GDB=/Users/christian/Projects/TheOS/BuildSupport/toolchain/bin/i386-theos-elf-gdb
+GDB=gdb
 SED=sed
 OBJDUMP=objdump
 DOCGEN=/Applications/Doxygen.app/Contents/Resources/doxygen
