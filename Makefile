@@ -3,7 +3,7 @@ TARGET=oostubs
 
 # one of linux, linux64
 # the platforms osxcross and windows are also possible but are not supported
-PLATFORM=linux64
+PLATFORM=linux
 
 CFLAGS=-Wall -O0 -g
 CXXFLAGS=
@@ -21,7 +21,7 @@ EMUFLAGS=
 DEBUGFLAGS=
 
 #----- END OF INPUT BLOCK -----#
--include config.mk
+
 include misc/${PLATFORM}/config.mk
 include misc/rules.mk
 -include misc/${PLATFORM}/rules.mk

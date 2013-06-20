@@ -100,21 +100,17 @@ class Blink{
  * for display of digits and to print the buffer after an endl.
  */
 class O_Stream : public Stringbuffer{
-	
-	public:    
-    /** 
-     * \brief basis for display of digits eg. 2, 8, 10 or 16 
-     */
-    enum Base{
-      bin=2,
-      oct=8,
-      dec=10,
-      hex=16
-    };  
-
-    Base base;
-
-	protected: 
+  protected: 
+    /// \~german  intern gespeicherte Vordergrundfarbe
+    /// \~english internal saved foreground color
+    int fgColor;
+    /// \~german  intern gespeicherte Hintergrundfarbe
+    /// \~english internal saved background color
+    int bgColor;
+    /// \~german  intern gespeicherte Blinkverhalten
+    /// \~english internal saved blinking status
+    bool blink;
+    
     /**
      * \~german 
      * \brief ermöglicht dem O_Stream das setzen der Attribute
@@ -148,15 +144,24 @@ class O_Stream : public Stringbuffer{
      * \param blink
      *    blinking state
      */
+    virtual void setAttributes(int fgColor, int bgColor, bool blink) = 0;
     
-	virtual void setAttributes(int fgColor, int bgColor, bool blink) = 0;
-
-	virtual void setfgColor(int fgColor) = 0;
-	virtual void setbgColor(int bgColor) = 0;
-	virtual void setblink(bool blink) = 0;
-	    
   public:
-
+    
+    /** 
+     * \brief basis for display of digits eg. 2, 8, 10 or 16 
+     */
+    enum Base{
+      bin=2,
+      oct=8,
+      dec=10,
+      hex=16
+    };
+    
+    /** 
+     * \brief current selected base 
+     */
+    Base base;
     
     /** 
      * \brief Default constructor initialising with dezimal system 
@@ -245,9 +250,6 @@ class O_Stream : public Stringbuffer{
      *
      * @param f mainpulator function to be applied to the ostream
      * @return reference to the current O_Stream object.
-     * 
-     * \~
-     * \todo write implementation
      **/
     O_Stream& operator << (O_Stream& (*f) (O_Stream&));
     
@@ -271,41 +273,31 @@ class O_Stream : public Stringbuffer{
  * into the input of the stream.
  * Main goal of the manipulators is to influence the display of the following 
  * output (eg. by choosing a basis for the display of digits).
- */ 
+ **/ 
 
-/** \brief print buffer after adding a newline 
- *
- * \~
- * \todo write implementation
+/** 
+ * \brief print buffer after adding a newline 
  */
 O_Stream& endl(O_Stream &out);
- 
-/** \brief switch basis of o_stream to binary 
- *
- * \~
- * \todo write implementation
+
+/** 
+ * \brief switch basis of o_stream to binary 
  */
 O_Stream& bin(O_Stream &out);
- 
-/** \brief switch basis of o_stream to octal 
- *
- * \~
- * \todo write implementation
+
+/** 
+ * \brief switch basis of o_stream to octal 
  */
 O_Stream& oct(O_Stream &out);
- 
-/** \brief switch basis of o_stream to decimal 
- *
- * \~
- * \todo write implementation
+
+/** 
+ * \brief switch basis of o_stream to decimal 
  */
 O_Stream& dec(O_Stream &out);
- 
-/** \brief switch basis of o_stream to hexadecimal 
- *
- * \~
- * \todo write implementation
+
+/** 
+ * \brief switch basis of o_stream to hexadecimal 
  */
 O_Stream& hex(O_Stream &out);
- 
+
 #endif

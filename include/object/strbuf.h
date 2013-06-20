@@ -13,8 +13,6 @@
 
 #include "config.h"
 
-#define BUFFER_SIZE 80
-
 /** 
  * \~german
  * \brief Puffer für die Textausgabe
@@ -43,40 +41,27 @@
  * 'protected'.
  */
 class Stringbuffer {
-  public:
-    
   protected:
-    /** \brief buffer containing the characters
-     * 
-     * \~
-     * \todo write declaration
+    /** 
+     * \brief buffer containing the characters
      */
-    char buffer[BUFFER_SIZE];
-
-
-    /** \brief buffer pointer saving the position of the next insertion 
-     * 
-     * \~
-     * \todo write declaration
+    char buffer[BUFFERSIZE];
+    
+    /** 
+     * \brief buffer pointer saving the position of the next insertion
      */
     short pos;
     
-    /** \brief Default constructor setting the buffer empty. 
-     * 
-     * \~
-     * \todo write implementation
+    /** 
+     * \brief Default constructor setting the buffer empty. 
      */
     Stringbuffer();
     
-    /** \brief Default destructor of Stringbuffer
-     *
-     * \~
-     * \todo write implementation
+    /** 
+     * \brief Default destructor of Stringbuffer
      */
-    virtual ~Stringbuffer(){};
+    virtual ~Stringbuffer();
     
-	
-
     /** \brief insert a character into the buffer
      *
      * Method put() inserts a character into the buffer. If the buffer is full 
@@ -84,9 +69,6 @@ class Stringbuffer {
      * flush().
      *
      * @param c character to be inserted into the buffer
-     * 
-     * \~
-     * \todo write implementation
      */
     void put(char c);
     
@@ -99,6 +81,9 @@ class Stringbuffer {
      * method has to be implemented in a subclass of Stringbuffer.
      */
     virtual void flush() = 0;
+    
+  public:
+    
 };
 
 #endif
