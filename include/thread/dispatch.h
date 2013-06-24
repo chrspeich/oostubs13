@@ -15,6 +15,7 @@
 
 #include "thread/thread.h"
 
+
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    CLASSES                      #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
@@ -31,7 +32,7 @@ class Dispatcher {
 private:
   /** \brief The currently active thread
    *  \todo define variable**/
-  
+  Thread* _active;
 
 public:
   /** 
@@ -40,7 +41,7 @@ public:
    *
    * \todo modify according to variable defintion
    */
-  Dispatcher(){}
+  Dispatcher() : _active(0) {}
 
   /** \brief Starts the scheduling
    *
@@ -69,7 +70,7 @@ public:
    * \return pointer to the currently active thread.
    */
   Thread* active() const{
-		return 0;
+		return _active;
   }
 };
 

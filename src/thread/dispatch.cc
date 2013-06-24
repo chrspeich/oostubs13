@@ -18,8 +18,21 @@
 
 /**\~english \todo implement**/
 void Dispatcher::go(Thread& first){
+	_active = &first;
+
+	if (setcontext(&_active->context) < 0) {
+		// TODO: error
+	}
 }
 
 /**\~english \todo implement**/
 void Dispatcher::dispatch(Thread& next){
+	Thread& old = *_active;
+
+	_active = &next;
+
+	if (swapcontext(&old.context, &next.context) < 0) {
+		// TODO: error
+	}
 }
+
