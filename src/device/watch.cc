@@ -11,12 +11,14 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
 #include "device/watch.h"
+#include <pthread.h>
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                GLOBAL OBJECTS                   #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
-extern unsigned int rrTimeSlice;
+extern volatile unsigned int rrTimeSlice;
+extern pthread_mutex_t tsMutex;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                   METHODS                       #
@@ -24,7 +26,9 @@ extern unsigned int rrTimeSlice;
 
 Watch::Watch(unsigned int us) : Gate()
 {
+    pthread_mutex_lock(&tsMutex);
     rrTimeSlice=us;
+    pthread_mutex_unlock(&tsMutex);
 }
 
 /**\~english \todo implement**/

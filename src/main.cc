@@ -31,7 +31,7 @@ Plugbox         plugbox;
 Curses_Stream   kout;
 Curses_Keyboard keyboard;
 Scheduler       scheduler;
-Watch           watch;
+Watch           watch(10000);
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
@@ -43,14 +43,22 @@ Watch           watch;
  * all interrupts will be disabled and the cpu will be halted.
  **/
 void kernel(){
-  kout.setpos(20,5);
-  kout << "Choose Subtask(A,B)!" << endl;
+  kout << " " << endl;
+  kout << "Choose Subtask(A,B)!" << endl << endl;
+  unsigned short x,y;
+  kout.getpos(x,y);
   Key k;
-  do
+  while(true)
   {
+    kout.setpos(x,y);
     k = keyboard.key_hit();
-  }while(!k.valid() || (k.ascii()!='A' && k.ascii()!='B'));
-  kout << endl << "Subtask " << k.ascii() << " chosen." << endl;
+    if(!k.valid())
+        continue;
+    if(k.ascii()=='A' || k.ascii()=='B')
+        break;
+    kout << "Invalid choice " << k.ascii() << endl;
+  }
+  kout << "Subtask " << k.ascii() << " chosen." << endl;
   Task4 task(k.ascii()=='A');
 
   keyboard.plugin();

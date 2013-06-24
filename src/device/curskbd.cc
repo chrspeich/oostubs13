@@ -13,11 +13,14 @@
 #include "useful/plugbox.h"
 #include "useful/pic.h"
 #include "useful/kout.h"
-#include "useful/cpu.h"
-#include <curses.h>
+#include <pthread.h>
 
+/* * * * * * * * * * * * * * * * * * * * * * * * *\
+#                GLOBAL OBJECTS                   #
+\* * * * * * * * * * * * * * * * * * * * * * * * */
 
-extern Key keyBuffer;
+extern pthread_mutex_t keyMutex;
+extern volatile unsigned int keyBuffer;
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    METHODS                      # 
 \* * * * * * * * * * * * * * * * * * * * * * * * */
@@ -26,22 +29,21 @@ Curses_Keyboard::Curses_Keyboard() : Gate(){
 }
 
 void Curses_Keyboard::plugin(){
-  //erst registrieren
   plugbox.assign(Plugbox::keyboard, *this);
-  //und im PIC erlauben
   pic.allow(Software_PIC::keyboard);
 }
 
 Key Curses_Keyboard::key_hit()
 {
-    Key temp=keyBuffer;
-    keyBuffer=Key();
-    return temp;
+    pthread_mutex_lock(&keyMutex);
+    unsigned int temp=keyBuffer;
+    keyBuffer=0;
+    pthread_mutex_unlock(&keyMutex);
+    return Key(temp);
 }
 
 void Curses_Keyboard::trigger()
 {
-      //Zeichen an fester Position ausgeben
     kout.flush();
     kout.setpos(4,10);
     kout << key_hit();

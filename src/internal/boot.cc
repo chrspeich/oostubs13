@@ -21,12 +21,15 @@ Log log;
 /**
  * \~english
  * \brief Internal global variable containing the last pressed key, that was net delivered to the keyboard driver.**/
-Key keyBuffer;
+volatile unsigned int keyBuffer;
 /**
  * \~english
  * \brief Internal global variable containing the current clock period length in us
  **/
-unsigned int rrTimeSlice;
+volatile unsigned int rrTimeSlice;
+
+pthread_mutex_t keyMutex=PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t tsMutex=PTHREAD_MUTEX_INITIALIZER;
 
 extern void kernel();
 extern void guardian(unsigned short slot);
@@ -38,7 +41,6 @@ class System
   public:
     System()
     {
-
         initscr();
         noecho();
         cbreak();
@@ -83,6 +85,7 @@ class System
         pthread_sigmask(SIG_BLOCK, &segfaultSet, NULL);
         pthread_cancel(os);
         pthread_join(os, NULL);
+        endwin();
     }
 };
 
@@ -120,9 +123,14 @@ class KeyboardEmulation
             pthread_sigmask(SIG_BLOCK, &all, NULL);
             while(true)
             {
-                keyBuffer.scancode(getch());
-
-                os.signal(interrupt, exception);
+                int key = getch();
+                if(key!=ERR)
+                {
+                    pthread_mutex_lock(&keyMutex);
+                    keyBuffer=key;
+                    pthread_mutex_unlock(&keyMutex);
+                    os.signal(interrupt, exception);
+                }
             }
 
             return NULL;
@@ -167,7 +175,10 @@ class ClockEmulation
             pthread_sigmask(SIG_BLOCK, &all, NULL);
             while(true)
             {
-                usleep(rrTimeSlice);
+                pthread_mutex_lock(&tsMutex);
+                unsigned int localBuffer=rrTimeSlice;
+                pthread_mutex_unlock(&tsMutex);
+                usleep(localBuffer);
 
                 os.signal(interrupt, exception);
             }
@@ -184,6 +195,9 @@ static ClockEmulation clk(0, 32);
 
 void handleMultiSig(int sig)
 {
+    endwin();
+    echo();
+    nocbreak();
     log << "Got multiple signals: " << strsignal(sig) << "(" << sig << ")" << endl;
     log << "Hard killing OS" << endl;
     _exit(sig);

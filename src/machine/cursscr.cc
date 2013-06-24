@@ -12,6 +12,7 @@
 Curses_Screen::Curses_Screen() : attribute(0x7){
   win=newwin(25,80,0,0);
   scrollok(win, true);
+  redrawwin(win);
 }
 
 Curses_Screen::~Curses_Screen(){

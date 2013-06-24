@@ -25,6 +25,14 @@ class Key {
      * A freshly constructed key is invalid.
      */
     Key () : asc (0) {}
+
+    /** \brief Valid key constructor
+     *
+     * Since this constructor takes the content of a key the constructed key is
+     * valid unless the scancode was 0.
+     *
+     */
+    Key(unsigned int s) : asc(s) {}
     
     /** \brief Test for validity.
      *
@@ -54,7 +62,7 @@ class Key {
      *
      * \param s The new scancode value
      **/
-    void scancode (unsigned char s) { 
+    void scancode (unsigned int s) { 
       asc = s; 
     }
 
