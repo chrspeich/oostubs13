@@ -11,6 +11,9 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
 #include "device/watch.h"
+#include "useful/scheduler.h"
+#include "useful/plugbox.h"
+#include "useful/pic.h"
 #include <pthread.h>
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
@@ -33,9 +36,12 @@ Watch::Watch(unsigned int us) : Gate()
 
 /**\~english \todo implement**/
 void Watch::windup(){
+	plugbox.assign(32 + PIC::timer, *this);
+	pic.allow(PIC::timer);
 }
 
 /**\~english \todo implement**/
 void Watch::trigger(){
+	scheduler.resume();
 }
  

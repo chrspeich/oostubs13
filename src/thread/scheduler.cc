@@ -11,6 +11,7 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
 #include "thread/scheduler.h"
+#include "thread/lock.h"
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                   METHODS                       #
@@ -25,6 +26,8 @@ void Scheduler::schedule(Thread& first){
 
 /**\~english \todo implement**/
 void Scheduler::ready(Thread& that){
+	Lock lock;
+
 	threads.push_back(&that);
 }
 
@@ -35,11 +38,15 @@ void Scheduler::exit(){
 
 /**\~english \todo implement**/
 void Scheduler::kill(Thread& that){
-	ThreadIterator iter = threads.begin();
+	{
+		Lock lock;
 
-	while (*iter != &that) iter++;
+		ThreadIterator iter = threads.begin();
 
-	threads.erase(iter);
+		while (*iter != &that) iter++;
+
+		threads.erase(iter);
+	}
 
 	if (active() == &that) {
 		resume();
@@ -48,9 +55,14 @@ void Scheduler::kill(Thread& that){
 
 /**\~english \todo implement**/
 void Scheduler::resume(){
-	Thread* next = threads.front();
-	threads.pop_front();
-	threads.push_back(next);
+	Thread* next;
+	{
+		Lock lock;
+
+		next = threads.front();
+		threads.pop_front();
+		threads.push_back(next);
+	}
 
 	dispatch(*next);
 }
