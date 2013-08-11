@@ -51,11 +51,11 @@ void Scheduler::kill(Thread& that){
 
 		ThreadIterator iter = threads.begin();
 
-	while (iter != threads.end()) {		
-		if(*iter == &that) {
+	while (iter != threads.end() && *iter != &that) {		
+		iter++;
+	}
+	if(*iter == &that) {
 		threads.erase(iter);
-		}
- 		iter++;
 	}
 
 	if (active() == &that) {
