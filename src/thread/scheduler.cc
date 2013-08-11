@@ -17,6 +17,14 @@
 #                   METHODS                       #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
+class IdleThread : public Thread {
+	void action() {
+		while(1) sleep(1000);
+	}
+};
+
+IdleThread idle;
+
 /**\~english \todo implement**/
 void Scheduler::schedule(Thread& first){
 	ready(first);
@@ -38,14 +46,16 @@ void Scheduler::exit(){
 
 /**\~english \todo implement**/
 void Scheduler::kill(Thread& that){
-	{
+	
 		Lock lock;
 
 		ThreadIterator iter = threads.begin();
 
-		while (*iter != &that) iter++;
-
+	while (iter != threads.end()) {		
+		if(*iter == &that) {
 		threads.erase(iter);
+		}
+ 		iter++;
 	}
 
 	if (active() == &that) {
@@ -55,14 +65,20 @@ void Scheduler::kill(Thread& that){
 
 /**\~english \todo implement**/
 void Scheduler::resume(){
+
 	Thread* next;
+
 	{
 		Lock lock;
 
+	if(threads.empty()){
+		next = &idle;
+	}	
+	else {
 		next = threads.front();
 		threads.pop_front();
 		threads.push_back(next);
 	}
-
-	dispatch(*next);
+	}
+		dispatch(*next);
 }
