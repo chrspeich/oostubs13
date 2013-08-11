@@ -1,4 +1,23 @@
+/*---------------------------------------------------------------------------*
+ * Technical Computer Science II                                             *
+ *---------------------------------------------------------------------------*
+ *                                                                           *
+ *                         T A S K 4                                         *
+ *                                                                           *
+ *---------------------------------------------------------------------------*/
+
+#ifndef __task4_header__
+#define __task4_header__
+
+/* * * * * * * * * * * * * * * * * * * * * * * * *\
+#                    INCLUDES                     #
+\* * * * * * * * * * * * * * * * * * * * * * * * */
+
 #include "user/appl.h"
+
+/* * * * * * * * * * * * * * * * * * * * * * * * *\
+#                    CLASSES                      #
+\* * * * * * * * * * * * * * * * * * * * * * * * */
 
 /** \brief Fourth test application
  *
@@ -18,6 +37,7 @@ enum Constants{
 };
     bool coop;
 
+protected:
 /** \brief %Rotating symbol application
  *
  * This coroutine creates a rotating symbol in the upper left corner of the
@@ -98,3 +118,5 @@ class Counter : public Application
 		 **/
 		virtual void action();
 };
+
+#endif

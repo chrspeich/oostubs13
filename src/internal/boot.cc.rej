@@ -1,0 +1,10 @@
+--- src/internal/boot.cc	2013-06-21 14:06:18.963890135 +0200
++++ src/internal/boot.cc	2013-06-21 14:21:05.035079500 +0200
+@@ -127,7 +127,6 @@
+                 if(key!=ERR)
+                 {
+                     pthread_mutex_lock(&keyMutex);
+-                    mvaddch(0,0,key);
+                     keyBuffer=key;
+                     pthread_mutex_unlock(&keyMutex);
+                     os.signal(interrupt, exception);
